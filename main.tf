@@ -25,3 +25,8 @@ module "vpc" {
   environment        = var.environment
 }
 
+module "ecr" {
+  source          = "./ecr"
+  repository_name = var.repository_name
+  environment     = var.environment
+}

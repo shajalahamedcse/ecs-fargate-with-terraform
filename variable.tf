@@ -47,3 +47,9 @@ variable "public_subnets" {
   description = "a list of CIDRs for public subnets in your VPC, must be set if the cidr variable is defined, needs to have as many elements as there are availability zones"
   default     = ["10.0.16.0/20", "10.0.48.0/20", "10.0.80.0/20"]
 }
+
+
+variable "repository_name" {
+  description = "the name of your stack, e.g. \"demo\""
+  default     = "tiger_backend"
+}
