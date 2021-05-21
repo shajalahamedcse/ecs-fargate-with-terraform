@@ -18,13 +18,13 @@ variable "aws-region" {
   default     = "ap-southeast-1"
 }
 
-variable "aws-access-key" {
-  type = string
-}
+# variable "aws-access-key" {
+#   type = string
+# }
 
-variable "aws-secret-key" {
-  type = string
-}
+# variable "aws-secret-key" {
+#   type = string
+# }
 
 
 variable "availability_zones" {

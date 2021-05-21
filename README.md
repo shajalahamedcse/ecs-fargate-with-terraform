@@ -23,3 +23,5 @@ aws s3api create-bucket --bucket mw-terraform-backend-store --region ap-southeas
 ```
 aws s3 ls --region ap-southeast-1
 ```
+
+
