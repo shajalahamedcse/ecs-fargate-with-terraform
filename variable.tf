@@ -53,3 +53,37 @@ variable "repository_name" {
   description = "the name of your stack, e.g. \"demo\""
   default     = "tiger_backend"
 }
+
+variable "container_port" {
+  description = "The port where the Docker is exposed"
+  default     = 8000
+}
+
+variable "service_desired_count" {
+  description = "Number of tasks running in parallel"
+  default     = 2
+}
+
+variable "container_cpu" {
+  description = "The number of cpu units used by the task"
+  default     = 256
+}
+
+variable "container_memory" {
+  description = "The amount (in MiB) of memory used by the task"
+  default     = 512
+}
+
+variable "container_image" {
+  description = "The amount (in MiB) of memory used by the task"
+  default     = "tiger_backend"
+}
+
+variable "health_check_path" {
+  description = "Http path for task health check"
+  default     = "/health"
+}
+
+# variable "tsl_certificate_arn" {
+#   description = "The ARN of the certificate that the ALB uses for https"
+# }
