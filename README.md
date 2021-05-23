@@ -19,9 +19,15 @@ Secrets - a Terraform module that creates many secrets based on a map input valu
 
 
 ```
-aws s3api create-bucket --bucket mw-terraform-backend-store --region ap-southeast-1 --create-bucket
+aws s3api create-bucket --bucket ap-east-mw-terraform-backend-store --region ap-east-1 --create-bucket-configuration LocationConstraint=ap-east-1
 ```
 aws s3 ls --region ap-southeast-1
 ```
 
+terraform plan -var-file="secret.tfvars" -var-file="environment.tfvars" -out="out.plan"
+terraform plan -var-file="secret.tfvars" -out="out.plan"
 
+terraform apply out.plan
+
+
+aws ecr get-login-password --region ap-east-1 | docker login --username AWS --password-stdin 712724807045.dkr.ecr.ap-east-1.amazonaws.com

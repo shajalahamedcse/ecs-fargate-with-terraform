@@ -32,6 +32,7 @@ variable "container_memory" {
 
 variable "container_image" {
   description = "Docker image to be launched"
+  default = "nginx"
 }
 
 variable "aws_alb_target_group_arn" {
@@ -47,11 +48,11 @@ variable "container_environment" {
   type        = list(any)
 }
 
-# variable "container_secrets" {
-#   description = "The container secret environmnent variables"
-#   type        = list
-# }
+variable "container_secrets" {
+  description = "The container secret environmnent variables"
+  type        = list(any)
+}
 
-# variable "container_secrets_arns" {
-#   description = "ARN for secrets"
-# }
+variable "container_secrets_arns" {
+  description = "ARN for secrets"
+}

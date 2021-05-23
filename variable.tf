@@ -9,13 +9,13 @@ variable "environment" {
 
 variable "region" {
   description = "the AWS region in which resources are created, you must set the availability_zones variable as well if you define this value to something other than the default"
-  default     = "ap-southeast-1"
+  default     = "ap-east-1"
 }
 
 variable "aws-region" {
   type        = string
   description = "AWS region to launch servers."
-  default     = "ap-southeast-1"
+  default     = "ap-east-1"
 }
 
 # variable "aws-access-key" {
@@ -29,7 +29,7 @@ variable "aws-region" {
 
 variable "availability_zones" {
   description = "a comma-separated list of availability zones, defaults to all AZ of the region, if set to something other than the defaults, both private_subnets and public_subnets have to be defined as well"
-  default     = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
+  default     = ["ap-east-1a", "ap-east-1b", "ap-east-1c"]
 }
 
 variable "cidr" {
@@ -56,7 +56,7 @@ variable "repository_name" {
 
 variable "container_port" {
   description = "The port where the Docker is exposed"
-  default     = 8000
+  default     = 80
 }
 
 variable "service_desired_count" {
@@ -76,14 +76,20 @@ variable "container_memory" {
 
 variable "container_image" {
   description = "The amount (in MiB) of memory used by the task"
-  default     = "tiger_backend"
+  default     = "712724807045.dkr.ecr.ap-east-1.amazonaws.com/tiger_backend"
 }
 
 variable "health_check_path" {
   description = "Http path for task health check"
-  default     = "/health"
+  default     = "/"
 }
 
-# variable "tsl_certificate_arn" {
-#   description = "The ARN of the certificate that the ALB uses for https"
-# }
+variable "tsl_certificate_arn" {
+  description = "The ARN of the certificate that the ALB uses for https"
+  default     = "arn:aws:acm:ap-east-1:712724807045:certificate/b3390d60-87ac-4ad7-aa34-855c56a977c1"
+}
+
+variable "application-secrets" {
+  description = "A map of secrets that is passed into the application. Formatted like ENV_VAR = VALUE"
+  type        = map(any)
+}

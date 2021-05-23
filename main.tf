@@ -7,10 +7,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket  = "mw-terraform-backend-store"
+    bucket  = "ap-east-mw-terraform-backend-store"
     encrypt = true
     key     = "terraform.tfstate"
-    region  = "ap-southeast-1"
+    region  = "ap-east-1"
     # dynamodb_table = "terraform-state-lock-dynamo" - uncomment this line once the terraform-state-lock-dynamo has been terraformed
   }
 }
@@ -40,13 +40,12 @@ module "security_groups" {
 }
 
 
-# module "secrets" {
-#   source              = "./modules/secrets"
-#   name                = var.name
-#   environment         = var.environment
-#   application-secrets = var.application-secrets
-# }
-
+module "secrets" {
+  source              = "./secrets"
+  name                = var.name
+  environment         = var.environment
+  application-secrets = var.application-secrets
+}
 
 module "alb" {
   source              = "./alb"
@@ -55,9 +54,10 @@ module "alb" {
   subnets             = module.vpc.public_subnets
   environment         = var.environment
   alb_security_groups = [module.security_groups.alb]
-  #   alb_tls_cert_arn    = var.tsl_certificate_arn
-  health_check_path = var.health_check_path
+  alb_tls_cert_arn    = var.tsl_certificate_arn
+  health_check_path   = var.health_check_path
 }
+
 module "ecs" {
   source                      = "./ecs"
   name                        = var.name
@@ -69,7 +69,6 @@ module "ecs" {
   container_port              = var.container_port
   container_cpu               = var.container_cpu
   container_memory            = var.container_memory
-  container_image             = var.container_image
   service_desired_count       = var.service_desired_count
   container_environment = [
     { name = "LOG_LEVEL",
@@ -77,7 +76,7 @@ module "ecs" {
     { name = "PORT",
     value = var.container_port }
   ]
-  #   container_secrets      = module.secrets.secrets_map
-  #   aws_ecr_repository_url = module.ecr.aws_ecr_repository_url
-  #   container_secrets_arns = module.secrets.application_secrets_arn
+  container_secrets      = module.secrets.secrets_map
+#   aws_ecr_repository_url = module.ecr.aws_ecr_repository_url
+  container_secrets_arns = module.secrets.application_secrets_arn
 }
