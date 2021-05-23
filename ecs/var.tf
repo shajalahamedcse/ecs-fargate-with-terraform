@@ -32,7 +32,7 @@ variable "container_memory" {
 
 variable "container_image" {
   description = "Docker image to be launched"
-  default = "nginx"
+  default     = "nginx"
 }
 
 variable "aws_alb_target_group_arn" {

@@ -38,9 +38,9 @@ resource "aws_iam_role" "ecs_task_role" {
 EOF
 }
 
-resource "aws_iam_policy" "dynamodb" {
-  name        = "${var.name}-task-policy-dynamodb"
-  description = "Policy that allows access to DynamoDB"
+resource "aws_iam_policy" "ecs_task_policy" {
+  name        = "${var.name}-ecs-task-policy"
+  description = "Policy that allows ecs to access different resources"
 
   policy = <<EOF
 {
@@ -59,7 +59,15 @@ resource "aws_iam_policy" "dynamodb" {
                 "dynamodb:Scan",
                 "dynamodb:Query",
                 "dynamodb:UpdateItem",
-                "dynamodb:UpdateTable"
+                "dynamodb:UpdateTable",
+                "ecs:*",
+                "ec2:*",
+                "elasticloadbalancing:*",
+                "ecr:*",
+                "cloudwatch:*",
+                "s3:*",
+                "rds:*",
+                "logs:*"
             ],
             "Resource": "*"
         }
@@ -97,7 +105,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach
 
 resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment" {
   role       = aws_iam_role.ecs_task_role.name
-  policy_arn = aws_iam_policy.dynamodb.arn
+  policy_arn = aws_iam_policy.ecs_task_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-task-role-policy-attachment-for-secrets" {

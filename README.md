@@ -29,5 +29,7 @@ terraform plan -var-file="secret.tfvars" -out="out.plan"
 
 terraform apply out.plan
 
+$ mychillcup
+
 
 aws ecr get-login-password --region ap-east-1 | docker login --username AWS --password-stdin 712724807045.dkr.ecr.ap-east-1.amazonaws.com
